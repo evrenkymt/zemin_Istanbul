@@ -21,10 +21,12 @@ elf_siniflari = ["high elf","wood elf","dark elf","orc"]
 yaratik_siniflari = ["argonian", "khajit"]
 
 i = 1
+dogruluk = 1
+tam_sayı = 0
 while i > 0:
   irk = input("Oluşturmak istediğiniz ırk nedir ? (Mevcut ırklar : insan , elf , yaratık)")
   if irk in irklar :
-    print(irk + " ırkınız seçtiniz. ") 
+    print(irk + " ırkını seçtiniz. ") 
     print("Hangi sınıf oluşturmak istiyorsunuz ? (Mevcut sınıflar : İnsan için nord, imperial, breton, redguard || Elf için high elf, wood elf, dark elf, orc || Yaratık için argonian, khajit )")
     sinif = input("")
     if irk == "insan" :
@@ -32,30 +34,41 @@ while i > 0:
           print(irk +" ırkında "+ sinif + "  sınıfı mevcut." )
 
         else:
-          print("insan ırkında böyle bir sınıf yok")
+          dogruluk = 0
     if irk == "elf":
         if sinif in elf_siniflari:
           print(irk +" ırkında "+ sinif + "  sınıfı mevcut." )
         else:
-          print("elf ırkında böyle bir sınıf yok")
+          dogruluk = 0
     if irk == "yaratık":
         if sinif in yaratik_siniflari:
           print(irk +" ırkında "+ sinif + "  sınıfı mevcut." )
         else:
-          print("yaratık ırkında böyle bir sınıf yok")
-    print("karakterinizin ismi:")
-    isim = input("")
-    print("cinsiyeti:")
-    cinsiyet = input("")
-    print("yaşı:")
-    yas = input()
-    yeni_karakter = karakter(irk,sinif,isim,cinsiyet,yas)
-    yeni_karakter.kayit(yeni_karakter)
+          dogruluk = 0
+    if dogruluk == 1 :
+      print("karakterinizin ismi:")
+      isim = input("")
+      print("cinsiyeti:")
+      cinsiyet = input("")
+      print("yaşı:")
+      tam_sayı = 0
+      while tam_sayı == 0:
+        yas = input()
+        try : 
+          y = int(yas)
+          tam_sayı = 1
+        except:
+          print("girdiğiniz değer tam sayı olmalıdır.")
+          print("yaşı int değer olarak giriniz: ")
+      yeni_karakter = karakter(irk,sinif,isim,cinsiyet,yas)
+      yeni_karakter.kayit(yeni_karakter)
+    else :
+      print("oluşturmak istediğiniz ırkta böyle bir sınıf bulunmamaktadır.")
 
   else:
-    print("oluşturmak istediğiniz irk bulunmamaktadır lütfen 3 seçenekten birini seçiniz. insan - elf - yaratık")
-  
-  print("Karakter oluşturmaya devam etmek istiyor musunuz ? ( evet için y hayır için n giriniz)")
+    print("Oluşturmak istediğiniz irk bulunmamaktadır lütfen 3 seçenekten birini seçiniz. insan - elf - yaratık")
+  print("Yeni bir karakter oluşturmak istiyor musunuz ? ( evet için y hayır için n giriniz)")
+  dogruluk = 1
   cevap = input("")
   if cevap == 'n' :
     i = 0
